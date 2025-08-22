@@ -1,0 +1,32 @@
+---
+title: "Clase1"
+author: "Sofia HInojosa"
+date: "2025-08-21"
+output: html_document
+---
+
+```{r}
+library('quantmod')
+library('tidyverse')
+library('openxlsx')
+
+USDJPY <- getSymbols("USDJPY=X", src="yahoo", 
+                     from="2025-01-01", to="2025-08-19", 
+                     auto.assign=FALSE)
+USDJPY
+```
+```{r}
+USDJPY <- data.frame(date=index(USDJPY), 
+                     coredata(USDJPY))
+USDJPY
+```
+
+```{r}
+USDJPY <- select(USDJPY, date, close=USDJPY.X.Close)
+USDJPY
+```
+```{r}
+write.xlsx(USDJPY, file="USDJPY.xlsx")
+
+```
+
